@@ -1,0 +1,14 @@
+
+If you want to fetch data from Server A (Node.js) that is served via Server B (Python FastAPI), you would use the endpoints defined in Server B to make HTTP GET requests to Server A. Here are the endpoints you would use on Server B:
+
+Fetching data from Server A (Node.js):
+
+http://localhost:3000/server1_info_json: Endpoint to fetch JSON data from Server A.
+http://localhost:3000/server1_info_txt: Endpoint to fetch text data from Server A.
+http://localhost:3000/server1_info_yaml: Endpoint to fetch YAML data from Server A.
+http://localhost:3000/server1_info_xml: Endpoint to fetch XML data from Server A.
+http://localhost:3000/server1_info_csv: Endpoint to fetch CSV data from Server A.
+Serving status message:
+
+http://localhost:3000/: Root endpoint for serving a status message indicating that Server B (Python FastAPI) is running.
+You can use these endpoints on Server B to fetch data from Server A. Ensure that Server A (Node.js) is running and accessible via localhost at port 3000.

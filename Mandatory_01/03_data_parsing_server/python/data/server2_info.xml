@@ -1,0 +1,6 @@
+<servers>
+    <server>
+        <name>Python Server 2</name>
+        <type>FastAPI</type>
+    </server>
+</servers>

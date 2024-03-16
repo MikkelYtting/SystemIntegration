@@ -1,0 +1,6 @@
+<servers>
+    <server>
+        <name>Node Server 1</name>
+        <type>JavaScript</type>
+    </server>
+</servers>
