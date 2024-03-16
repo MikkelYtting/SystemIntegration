@@ -1,3 +1,4 @@
+# Poetry add fastapi uvicorn pyyaml
 from fastapi import FastAPI
 import xml.etree.ElementTree as ET
 import yaml
