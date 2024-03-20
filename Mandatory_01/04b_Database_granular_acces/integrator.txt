@@ -1,0 +1,29 @@
+Dokumentation for integrator
+Trin 1: Åbn Kommandprompt
+Trin 2: Install sql cmd for at kunne connecte til en mssql server via cmd. Hvis man bruger windows med choko: “choco install sqlcmd”
+Trin 3: Forbind til din Azure SQL Database
+I kommandoprompten, skriv og kør følgende kommando for at oprette forbindelse til din database:
+“sqlcmd -S mikkelyttingserver.database.windows.net -d SystemIntegrationMandatory01 -U SimonsUser -P Simon123 -N -l 30”
+Dette vil logge dig ind på en Azure SQL Database. -N sikrer krypteret forbindelse, og -l 30 sætter timeout til 30 sekunder.
+Trin 4: Test Tilladelser
+Nu hvor du er connectet, kan du teste tilladelserne for de forskellige kolonner. Du skal teste en tabel CustomerData som har kolonnerne ReadWriteData, ReadOnlyData, og NoAccessData.
+
+Test Læse/Skrive Tilladelse (ReadWriteData): 
+For at indsætte en værdi i ReadWriteData kolonnen
+“INSERT INTO CustomerData (ReadWriteData) VALUES ('Test data');
+GO”
+For at læse værdien fra ReadWriteData kolonnen:
+“SELECT ReadWriteData FROM CustomerData;
+GO”
+Test Kun Læse Tilladelse (ReadOnlyData):
+For at bekræfte læseadgang, prøv at læse fra ReadOnlyData:
+“SELECT ReadOnlyData FROM CustomerData;
+GO”
+Hvis du forsøger at skrive til denne kolonne, bør du modtage en fejlmeddelelse, da din bruger ikke har writtingtilladelse.
+
+Test Ingen Adgang (NoAccessData):
+
+Prøv at vælge fra NoAccessData kolonnen:
+“SELECT NoAccessData FROM CustomerData;
+GO”
+Da du ikke har adgang, bør denne kommando resultere i en fejl.

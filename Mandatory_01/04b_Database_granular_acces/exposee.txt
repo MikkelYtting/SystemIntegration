@@ -1,0 +1,34 @@
+Dokumentation for Databaseopsætning
+Trin 1: Opret Tabel
+Først opretter du en tabel, der skal indeholde dine testdata. I denne vejledning bruger vi en tabel ved navn CustomerData med tre kolonner for at demonstrere de forskellige acceslevels.
+SQL Create Scripts for CustomerData Tabel
+CREATE TABLE CustomerData (
+    ID INT IDENTITY(1,1) PRIMARY KEY,
+    ReadWriteData NVARCHAR(255),
+    ReadOnlyData NVARCHAR(255),
+    NoAccessData NVARCHAR(255)
+);
+SQL Insert Scripts for CustomerData Tabel
+INSERT INTO CustomerData (ReadWriteData, ReadOnlyData, NoAccessData) VALUES
+('Læse/skrive test 1', 'Kun læse test 1', 'Ingen adgang test 1'),
+('Læse/skrive test 2', 'Kun læse test 2', 'Ingen adgang test 2'),
+('Læse/skrive test 3', 'Kun læse test 3', 'Ingen adgang test 3');
+
+Trin 2: Opret Brugere og Tilpas Rettigheder
+Opret en bruger, SimonsUser, som skal testes for forskellige acceslevels. Denne bruger repræsenterer den integrator, der vil forsøge at tilgå databasen:
+CREATE USER SimonsUser WITH PASSWORD = 'Simon123';
+
+Trin 3: Tildel SimonsUser de relevante rettigheder på kolonneniveau:
+Giv Læse/Skrive Tilladelser til ReadWriteData:
+“GRANT SELECT, INSERT, UPDATE ON CustomerData(ReadWriteData) TO SimonsUser;”
+Giv Kun Læse Tilladelser til ReadOnlyData:
+“GRANT SELECT ON CustomerData(ReadOnlyData) TO SimonsUser;”
+Ingen Adgang til NoAccessData: Ingen yderligere handling er nødvendig, da SimonsUser ikke bør have adgang til NoAccessData uden at være givet rettigheder.
+
+Trin 3: Test
+Eksempel på INSERT forespørgsel:
+INSERT INTO CustomerData (ReadWriteData, ReadOnlyData, NoAccessData) VALUES ('Test ReadWrite Data', 'Test ReadOnly Data', 'Skal ikke tilgås');
+
+Eksempel på SELECT Forespørgsel:
+-- Forsøger at læse alle tre kolonner (kun ReadWriteData og ReadOnlyData bør være tilgængelige)
+SELECT ReadWriteData, ReadOnlyData, NoAccessData FROM CustomerData;
