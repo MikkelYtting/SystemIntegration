@@ -1,0 +1,25 @@
+Test af Endpoint
+For at teste registrering af en webhook:
+
+Åbn Postman.
+Indstil HTTP-metoden til POST.
+Sæt URL'en til din ngrok videresendelsesadresse plus /register. Det skal se sådan ud: https://7e3a-80-71-142-22.ngrok-free.app/register.
+I Body på forespørgslen, vælg raw og vælg JSON som formatet.
+Indtast JSON payload for webhook registreringen. Her er et eksempel på en payload:
+{
+  "url": "http://example.com/webhook",
+  "events": ["payment_received", "invoice_completed"]
+}
+Klik på Send.
+Hvis det lykkes, skal du modtage en statuskode 201 Created og en respons, der inkluderer den gemte webhook-information. Tjek din webhooks.db fil for at bekræfte, at den nye post er blevet tilføjet.
+
+Test af unregister Endpoint
+Bliv i Postman
+Indstil HTTP-metoden til POST.
+Sæt URL'en til din ngrok-adresse plus /unregister. Det skal se sådan ud: https://7e3a-80-71-142-22.ngrok-free.app/unregister.
+I Body på forespørgslen, vælg raw og indstil formatet til JSON.
+Indtast JSON payload for webhook afregistreringen. Brug den samme url, som du brugte under registreringen:
+{
+  "url": "http://example.com/webhook"
+}
+Klik på Send.

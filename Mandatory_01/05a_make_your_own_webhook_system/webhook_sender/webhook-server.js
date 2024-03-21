@@ -56,4 +56,5 @@ app.listen(3000, () => console.log('Webhook system running on port 3000'));
 // step 1: node webhook-server.js
 // step 2: I en anden terminal: ngrok http 3000
 // i postman: GET https://XXXX-80-71-142-22.ngrok-free.app/ping, linket ændrer sig hvergang
-// tjeh det virker i http://127.0.0.1:4040/inspect/http
+// tjek det virker i http://127.0.0.1:4040/inspect/http
+// register og unregister, blvier updateres i webhooks.db.

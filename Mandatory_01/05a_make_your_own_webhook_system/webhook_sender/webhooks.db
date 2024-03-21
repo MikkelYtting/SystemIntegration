@@ -1,0 +1,2 @@
+{"url":"http://example.com/webhook","events":["payment_received","invoice_completed"],"_id":"qeseA9iEXjVMo3Wj"}
+{"$$deleted":true,"_id":"qeseA9iEXjVMo3Wj"}
