@@ -14,18 +14,15 @@ app.use(bodyParser.json());
 // Define supported events
 const SUPPORTED_EVENTS = ['payment_received', 'payment_processed', 'invoice_processing', 'invoice_completed'];
 
-// Register a webhook
+// Register a webhook in the local system
 app.post('/register', (req, res) => {
     const { url, events } = req.body;
-
-    // Validate URL...
-    // This is where you might add further validation for the URL if needed
 
     // Check if all requested events are supported
     const allEventsSupported = events.every(event => SUPPORTED_EVENTS.includes(event));
 
     if (!allEventsSupported) {
-        return res.status(400).send({error: "One or more events are not supported."});
+        return res.status(400).send({ error: "One or more events are not supported." });
     }
 
     db.insert({ url, events }, (err, newDoc) => {
@@ -34,11 +31,9 @@ app.post('/register', (req, res) => {
     });
 });
 
-// Unregister a webhook
+// Unregister a webhook in the local system
 app.post('/unregister', (req, res) => {
     const { url } = req.body;
-    // Validate URL...
-    // Here you could also add logic to ensure the URL is formatted correctly
 
     db.remove({ url: url }, {}, (err, numRemoved) => {
         if (err) return res.status(500).send(err);
@@ -46,7 +41,7 @@ app.post('/unregister', (req, res) => {
     });
 });
 
-// Ping endpoint
+// Ping endpoint to test the local system
 app.get('/ping', (req, res) => {
     db.find({}, (err, docs) => {
         if (err) {
@@ -64,8 +59,16 @@ app.get('/ping', (req, res) => {
     });
 });
 
+// Listener endpoint to receive events
+app.post('/webhook-listener', (req, res) => {
+    console.log('Received webhook event:', req.body);
+    res.send('Event received');
+});
+
 // Start the server
-app.listen(3000, () => console.log('Webhook system running on port 3000'));
+const PORT = 3000;
+app.listen(PORT, () => console.log(`Webhook system running on port ${PORT}`));
+
 
 
 // step 1: node webhook-server.js
