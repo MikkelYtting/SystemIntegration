@@ -11,10 +11,23 @@ const db = new Datastore({ filename: 'webhooks.db', autoload: true });
 
 app.use(bodyParser.json());
 
+// Define supported events
+const SUPPORTED_EVENTS = ['payment_received', 'payment_processed', 'invoice_processing', 'invoice_completed'];
+
 // Register a webhook
 app.post('/register', (req, res) => {
     const { url, events } = req.body;
-    // Validate url and events ...
+
+    // Validate URL...
+    // This is where you might add further validation for the URL if needed
+
+    // Check if all requested events are supported
+    const allEventsSupported = events.every(event => SUPPORTED_EVENTS.includes(event));
+
+    if (!allEventsSupported) {
+        return res.status(400).send({error: "One or more events are not supported."});
+    }
+
     db.insert({ url, events }, (err, newDoc) => {
         if (err) return res.status(500).send(err);
         res.status(201).send(newDoc);
@@ -24,15 +37,16 @@ app.post('/register', (req, res) => {
 // Unregister a webhook
 app.post('/unregister', (req, res) => {
     const { url } = req.body;
-    // Validate url ...
-    db.remove({ url }, {}, (err, numRemoved) => {
+    // Validate URL...
+    // Here you could also add logic to ensure the URL is formatted correctly
+
+    db.remove({ url: url }, {}, (err, numRemoved) => {
         if (err) return res.status(500).send(err);
         res.status(200).send({ removed: numRemoved });
     });
 });
 
 // Ping endpoint
-
 app.get('/ping', (req, res) => {
     db.find({}, (err, docs) => {
         if (err) {
@@ -50,8 +64,9 @@ app.get('/ping', (req, res) => {
     });
 });
 
-
+// Start the server
 app.listen(3000, () => console.log('Webhook system running on port 3000'));
+
 
 // step 1: node webhook-server.js
 // step 2: I en anden terminal: ngrok http 3000

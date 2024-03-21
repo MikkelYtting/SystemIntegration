@@ -1,11 +1,21 @@
-const express = require('express');
-const app = express();
+const axios = require('axios');
 
-app.use(express.json());
+// URL af simons ngrok
+const theirRegistrationUrl = '';
 
-app.post('/webhook', (req, res) => {
-    console.log('Webhook received:', req.body);
-    res.status(200).send('Acknowledged');
+// min listener ngrok link
+const yourWebhookUrl = '';
+
+// The events you're interested in
+const events = ['payment_received', 'invoice_processed']; 
+
+axios.post(theirRegistrationUrl, {
+    url: yourWebhookUrl,
+    events: events
+})
+.then(response => {
+    console.log('Registration successful', response.data);
+})
+.catch(error => {
+    console.error('Registration failed', error);
 });
-
-app.listen(4000, () => console.log('Webhook listener running on port 4000'));
