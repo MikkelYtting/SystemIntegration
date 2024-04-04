@@ -1,0 +1,13 @@
+npm init -y
+npm i express
+
+drag html file to browser
+
+nodemon server.js
+nodemon clients.js 
+
+refresh browser
+inspect 
+console
+click "say hello"
+
