@@ -1,5 +1,6 @@
 npm init -y
 npm i express
+npm install ws
 
 drag html file to browser
 
