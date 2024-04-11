@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
+    <title>Forms</title>
+</head>
+<body>
+    <section>
+        <h2>Basic Form (Node.js - Port 8080)</h2>
+        <form action="http://localhost:8080/form" method="POST">
+            <label for="username-node">Username</label>
+            <input type="text" name="username" id="username-node" placeholder="username">
+
+            <label for="password-node">Password</label>
+            <input type="password" name="password" id="password-node" placeholder="password">
+
+            <input type="submit" value="Send Form Data">
+        </form>
+    </section>
+
+    <section>
+        <h2>File Form (Node.js - Port 8080)</h2>
+        <form action="http://localhost:8080/fileform" method="POST" enctype="multipart/form-data">
+            <label for="file-node">File</label>
+            <input type="file" name="file" id="file-node" accept="image/*">
+
+            <label for="description-node">Description</label>
+            <input type="text" name="description" id="description-node">
+
+            <input type="submit" value="Send File">
+        </form>
+    </section>
+
+    <section>
+        <h2>Basic Form (FastAPI - Port 8000)</h2>
+        <form action="http://localhost:8000/form" method="POST">
+            <label for="username-fastapi">Username</label>
+            <input type="text" name="username" id="username-fastapi" placeholder="username">
+
+            <label for="password-fastapi">Password</label>
+            <input type="password" name="password" id="password-fastapi" placeholder="password">
+
+            <input type="submit" value="Send Form Data">
+        </form>
+    </section>
+
+    <section>
+        <h2>File Form (FastAPI - Port 8000)</h2>
+        <form action="http://localhost:8000/fileform" method="POST" enctype="multipart/form-data">
+            <label for="file-fastapi">File</label>
+            <input type="file" name="file" id="file-fastapi" accept="image/*">
+
+            <label for="description-fastapi">Description</label>
+            <input type="text" name="description" id="description-fastapi">
+
+            <input type="submit" value="Send File">
+        </form>
+    </section>
+
+    <script>
+        // JavaScript for client-side validation remains the same
+        // and will apply to all file inputs equally
+        document.querySelectorAll('input[type="file"]').forEach(fileInput => {
+            fileInput.addEventListener("change", (event) => {
+                const file = event.target.files[0];
+                const validTypes = ["image/png", "image/svg"];
+                if (!validTypes.includes(file.type)) {
+                    alert("Not a valid type");
+                    fileInput.value = "";
+                    return;
+                }
+
+                const maxSize = 10 * 1024 * 1024; // 10MB
+                if (file.size > maxSize) {
+                    alert(`File too big, max size: ${maxSize}`);
+                    fileInput.value = "";
+                    return;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

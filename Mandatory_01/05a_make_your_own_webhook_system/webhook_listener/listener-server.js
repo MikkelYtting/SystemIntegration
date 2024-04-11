@@ -1,16 +1,16 @@
 const axios = require('axios');
 
 // URL af simons ngrok
-const theirRegistrationUrl = '';
+const SimonRegistrationUrl = '';
 
 // min listener ngrok link
-const yourWebhookUrl = '';
+const MyWebhookUrl = '';
 
 // The events you're interested in
 const events = ['payment_received', 'invoice_processed']; 
 
-axios.post(theirRegistrationUrl, {
-    url: yourWebhookUrl,
+axios.post(SimonRegistrationUrl, {
+    url: MyWebhookUrl,
     events: events
 })
 .then(response => {

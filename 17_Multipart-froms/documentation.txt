@@ -1,0 +1,17 @@
+for node: 
+npm install express multer
+pip install aiofiles
+
+to run: 
+Open the index.html (drag to browser)
+start server by; nodemon app.js
+test by parsing data from the index file
+
+
+for python:
+pip install fastapi aiofiles "uvicorn[standard]"
+pip install python-multipart
+
+to run:
+uvicorn main:app
+test by using the forms
