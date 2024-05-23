@@ -1,0 +1,6 @@
+req: pip install websockets
+
+to run:
+
+python server.py
+python client.py
