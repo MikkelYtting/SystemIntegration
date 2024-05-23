@@ -1,0 +1,24 @@
+Program Description
+This program integrates Auth0 for authentication in a JavaScript application using Node.js and Express. It allows users to log in and log out, displaying a welcome message upon successful authentication.
+
+File Descriptions
+index.html
+Loads styles and scripts.
+Contains login and logout buttons.
+Displays welcome message.
+
+
+
+app.js
+Initializes Auth0 client.
+Handles login and logout.
+Processes authentication and updates DOM with user info.
+
+server.js
+Serves static files.
+Routes all requests to index.html.
+Listens on port 3000
+
+styles.css
+Centers content.
+Styles buttons.

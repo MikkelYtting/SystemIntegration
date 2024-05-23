@@ -1,0 +1,21 @@
+What is a Federated Identity Service?
+
+Kort fortalt: A Federated Identity Service allows users to log in to multiple applications using a single set of credentials. 
+
+This means users can authenticate once and gain access to various systems without needing to log in separately to each one. 
+Federated identity services simplify the user experience by providing Single Sign-On (SSO) capabilities and enhancing security by centralizing authentication and reducing the need for multiple passwords.
+
+## Federated Identity Services Comparison
+
+| Service                     | Pros                                                                                                 | Cons                                                        |
+|-----------------------------|------------------------------------------------------------------------------------------------------|-------------------------------------------------------------|
+| **Auth0**                   | Easy to integrate, extensive documentation, supports multiple identity providers, robust security    | Pricing can be high for large scale, learning curve for     |
+|                             | features, free tier available                                                                        | advanced features                                           |
+| **AWS Cognito**             | Integrates well with AWS services, scalable, supports SSO and MFA, free tier available               | Configuration can be complex, limited support for non-AWS   |
+|                             |                                                                                                      | services                                                    |
+| **Okta**                    | Comprehensive identity management, supports SSO, MFA, easy to integrate, extensive documentation     | Pricing can be high, advanced features can be complex       |
+| **Firebase Authentication** | Easy to use, integrates well with other Firebase services, free tier available                       | Limited customization, may require additional services for  |
+|                             |                                                                                                      | full functionality                                          |
+| **Microsoft Azure AD B2C**  | Integrates well with Microsoft services, supports SSO, MFA, highly customizable                      | Pricing can be high, complex setup for non-Microsoft        |
+|                             |                                                                                                      | environments                                                |
+|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|

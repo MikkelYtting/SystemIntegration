@@ -1,0 +1,52 @@
+Setup Guide:
+
+Prerequisites:
+- Node.js installed on your machine.
+- An Auth0 account.
+
+Step 1: Set Up Auth0
+
+Go to Auth0 and sign up for a free account.
+Create a New Application:
+
+Navigate to the Applications section in the Auth0 Dashboard.
+Click on "Create Application".
+Name your application and select "Single Page Web Applications".
+Click "Create".
+Configure Application Settings:
+
+In the settings tab of your application, configure the following:
+Allowed Callback URLs: http://localhost:3001/callback
+Allowed Logout URLs: http://localhost:3001
+Allowed Web Origins: http://localhost:3001
+Save your changes.
+
+Step 2:
+Create new project.
+
+Initialize a new Node.js project by running:
+npm init -y
+
+npm install express
+
+Step 3:
+Create index.htlm
+Create app.js
+Create server.js
+
+Step 4:
+Run the following command in your project directory:
+node server.js
+
+
+Open Your Browser:
+Navigate to http://localhost:3000.
+
+
+Step 5: Test the Application
+Log In:
+
+Click the "Log In" button and follow the Auth0 authentication flow.
+Log Out:
+
+After logging in, you should see a welcome message and a "Log Out" button. Click the "Log Out" button to log out
