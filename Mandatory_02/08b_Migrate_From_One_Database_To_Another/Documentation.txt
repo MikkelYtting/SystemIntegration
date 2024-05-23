@@ -1,0 +1,12 @@
+pre req: pip install sqlalchemy pandas psycopg2-binary
+
+2 databases; target and source
+
+run: python migrate_data.py
+
+
+
+
+CREATE DATABASE targetdb;
+CREATE USER username WITH ENCRYPTED PASSWORD 'password';
+GRANT ALL PRIVILEGES ON DATABASE targetdb TO username;
