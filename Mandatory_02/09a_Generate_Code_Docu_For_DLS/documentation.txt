@@ -1,0 +1,32 @@
+Jeg har brugt docfx på på DLS_Catalog_Service_03
+
+ÅBN DEN HER FIL I BROSWER FOR AT SE KODE dokumentation
+C:\Users\Ytting\Documents\GitHub\SystemIntegration\Mandatory_02\09a_Generate_Code_Docu_For_DLS\docfx_project\_site\_site\api\index.html 
+
+
+Jeg startede med at navigere til DocFX-projektmappen i min kommandolinje:
+cd "D:\Top Up\Development of Large Systems\DLS_Catalog_Service_3.0\docfx_project"
+Derefter genererede jeg metadata for projektet ved at køre følgende kommando::
+docfx metadata
+For at bygge dokumentationen brugte jeg kommandoen:
+docfx build -o _site
+Til sidst serverede jeg dokumentationen lokalt, så jeg kunne se den i min webbrowser::
+docfx serve _site
+
+Dette genererer kode-dokumentationen ved brug af DocFX, som er et værktøj til at oprette dokumentation for .NET-projekter. 
+DocFX tager ens kodebase og genererer en HTML-dokumentation, der inkluderer beskrivelser af ens klasser, metoder osv.
+
+Med DocFX kan jeg nemt opdatere og vedligeholde dokumentationen for mit projekt og sikre, at den altid er synkroniseret med den aktuelle kodebase.
+
+
+
+
+
+Oversigt over docfx_project mappen
+Hovedfiler og mapper
+docfx.json: Hovedkonfigurationsfilen for DocFX. Denne fil specificerer hvilke filer og mapper der skal inkluderes i dokumentationen, og hvordan de skal behandles.
+index.md: Forside for dokumentationen. Denne fil indeholder introduktionen og de vigtigste links til andre dele af dokumentationen.
+toc.yml: Table of Contents (TOC) filen. Denne fil definerer navigationsstrukturen for dokumentationen.
+_site: Output-mappen hvor de genererede dokumentationsfiler placeres efter build-processen. Denne mappe indeholder de statiske HTML-filer, billeder, scripts osv., der udgør den færdige dokumentation.
+api: Denne mappe indeholder de genererede YAML-filer, der beskriver API'ens struktur, samt en index.md fil, der fungerer som API's hovedside.
+Eksempel på filer: DLS_Catalog_Service.Model.Catalog.yml, DLS_Catalog_Service.Model.Product.yml, index.md
