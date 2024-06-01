@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Long Polling</title>
+</head>
+<body>
+    <h1>Long Polling Example</h1>
+    <div id="messages"></div>
+    <script>
+        const messagesDiv = document.getElementById("messages");
+
+        // Function to subscribe to the events
+        const subscribe = async () => {
+            try {
+                const response = await fetch("/events/subscribe");
+                const result = await response.json();
+                const message = document.createElement("div");
+                message.textContent = result.data;
+                messagesDiv.appendChild(message);
+
+                // Re-establish the connection after receiving data
+                subscribe();
+            } catch (error) {
+                console.error("Error during subscription:", error);
+
+                // Retry subscribing after a short delay if an error occurs
+                setTimeout(subscribe, 1000);
+            }
+        };
+
+        // Start subscribing to the events
+        subscribe();
+    </script>
+</body>
+</html>
