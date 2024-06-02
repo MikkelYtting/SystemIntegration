@@ -1,0 +1,22 @@
+Pre req:
+npm install cors
+npm init -y
+npm install express stripe body-parser
+npm install dotenv
+choco install ngrok
+ngrok config add-authtoken 2e0I80o8MO2sMQI4UMekNTiisqh_6DSLZzo7YGDaHAgspzqhS
+
+For at starte og forwarde:
+1. node server.js
+2. ngrok http 3000
+
+
+Installer også Stripe CLI: https://docs.stripe.com/stripe-cli#install 
+1. scoop bucket add stripe https://github.com/stripe/scoop-stripe-cli.git 
+2. scoop install stripe 
+3. stripe login
+4. stripe trigger payment_intent.succeeded
+
+evt: (nemmere at fejlsøge med)
+1. npm install -g http-server // til at server frontend
+2. http-server .
