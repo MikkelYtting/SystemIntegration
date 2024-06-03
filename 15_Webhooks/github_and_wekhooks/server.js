@@ -12,7 +12,7 @@ app.use(bodyParser.json()); // for parsing application/json
 
 app.post('/webhook', (req, res) => {
     console.log('Received webhook:', req.body);
-    // Here you can handle the webhook event accordingly
+    // 
     res.send('Received!');
 });
 

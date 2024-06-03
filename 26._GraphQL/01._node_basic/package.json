@@ -1,19 +1,18 @@
 {
-  "name": "node",
+  "name": "01._node_basic",
   "version": "1.0.0",
   "description": "",
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "start-nix": "SOMETHING=123 node index.js",
-    "start-windows": "$env:Something=123 node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "dotenv": "^16.4.4"
+    "express": "^4.19.2",
+    "graphql": "^16.8.1",
+    "graphql-http": "^1.22.1"
   }
 }
