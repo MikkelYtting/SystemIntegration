@@ -1,10 +1,10 @@
-import db from "../database/data.js";
+import { Author, Book } from '../types';
 
-const Author = {
-    books: (parent: any, args: any, context: any, info: any) => {
-        const booksByAuthor = db.books.filter((book) => book.authorId === Number(parent.id));
-        return booksByAuthor
-    }
+// Resolver for Author type
+const AuthorResolver = {
+  books: (author: Author, args, { books }): Book[] => {
+    return books.filter(book => book.authorId === author.id);
+  }
 };
 
-export default Author;
+export default AuthorResolver;

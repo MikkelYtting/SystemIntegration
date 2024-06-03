@@ -15,10 +15,12 @@
     <div id="value"></div>
 
     <script>
+        // GraphQL forespørgsel
         const query = `query {
             hello
         }`;
 
+        // Send forespørgsel til '/graphql' endpointet
         fetch("/graphql", {
             method: "POST",
             headers: {
@@ -30,8 +32,9 @@
         })
         .then((response) => response.json())
         .then((result) => {
-            document.getElementById("key").innerText = Object.keys(data)[0];
-            document.getElementById("value").innerText = data.hello;
+            // Vis svaret på siden
+            document.getElementById("key").innerText = Object.keys(result.data)[0];
+            document.getElementById("value").innerText = result.data.hello;
         });
     </script>
 </body>

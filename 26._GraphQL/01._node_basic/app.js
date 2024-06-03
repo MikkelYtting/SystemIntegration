@@ -1,14 +1,15 @@
 import express from "express";
+import { GraphQLSchema, GraphQLObjectType, GraphQLString } from 'graphql';
+import { createHandler } from 'graphql-http/lib/use/express';
 
 const app = express();
 
+// Serve static files from the "public" directory
 app.use(express.static("public"));
 
-import { GraphQLSchema, GraphQLObjectType, GraphQLString } from 'graphql';
-
 /**
- * Construct a GraphQL schema and define the necessary resolvers.
- *
+ * Opret et GraphQL-skema og definer nødvendige resolvere.
+ * 
  * type Query {
  *   hello: String
  * }
@@ -25,9 +26,9 @@ const schema = new GraphQLSchema({
   }),
 });
 
-import { createHandler } from 'graphql-http/lib/use/express';
+// Håndter GraphQL-anmodninger på '/graphql' endpointet
 app.all('/graphql', createHandler({ schema }));
 
-
+// Start serveren
 const PORT = process.env.PORT ?? 8080;
 app.listen(PORT, () => console.log("Server is running on port", PORT));

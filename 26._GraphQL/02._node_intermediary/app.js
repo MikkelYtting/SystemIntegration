@@ -1,4 +1,7 @@
 import express from "express";
+import { GraphQLSchema, GraphQLObjectType, GraphQLInt, GraphQLString, GraphQLList, GraphQLNonNull } from "graphql";
+import { graphqlHTTP } from "express-graphql";
+
 const app = express();
 
 let movieId = 4;
@@ -8,7 +11,7 @@ const movies = [
     { id: 3, title: "One Flew Over the Cuckoo's Nest", actorIds: [2] },
     { id: 4, title: "Junior", actorIds: [2, 3] },
 ];
- 
+
 let actorId = 3;
 const actors = [
     { id: 1, name: "Nicolas Cage" },
@@ -16,55 +19,48 @@ const actors = [
     { id: 3, name: "Arnold Schwarzenegger" },
 ];
 
-import { GraphQLSchema, GraphQLObjectType, GraphQLInt, GraphQLString, GraphQLList, GraphQLNonNull } from "graphql";
-
+// Definerer GraphQL-typer og resolvere for skuespillere og film
 const ActorType = new GraphQLObjectType({
     name: "Actor",
-    description: "An actor",
+    description: "En skuespiller",
     fields: () => ({
         id: { type: GraphQLInt },
         name: { type: GraphQLString },
         movies: { 
             type: new GraphQLList(MovieType),
-            resolve: (actor) => {
-                return movies.filter(movie => movie.actorIds.includes(actor.id));
-            }
+            resolve: (actor) => movies.filter(movie => movie.actorIds.includes(actor.id))
         }
     })
 });
 
 const MovieType = new GraphQLObjectType({
     name: "Movie",
-    description: "A movie",
+    description: "En film",
     fields: {
         id: { type: GraphQLInt },
         title: { type: GraphQLString },
         actorIds: { type: new GraphQLList(GraphQLInt) },
         actors: {
             type: new GraphQLList(ActorType),
-            description: "Get all the actors that belong to a movie",
-            resolve: (movie) => {
-                return movie.actorIds.map(actorId => actors.find(actor => actor.id === actorId));
-            }
+            description: "Få alle skuespillere tilknyttet en film",
+            resolve: (movie) => movie.actorIds.map(actorId => actors.find(actor => actor.id === actorId))
         }
     }
 });
 
+// Definerer mutationer for at tilføje film og skuespillere
 const RootMutationType = new GraphQLObjectType({
     name: "RootMutationType",
     fields: {
         addMovie: {
             type: MovieType,
-            description: "Create a new movie",
+            description: "Opret en ny film",
             args: {
                 title: { type: new GraphQLNonNull(GraphQLString) },
                 actorIds: { type: new GraphQLNonNull(new GraphQLList(GraphQLInt)) }
             },
             resolve: (parent, args) => {
-                const foundActors = args.actorIds.map(actorId => 
-                        actors.find(actor => actor.id === actorId)
-                );
-
+                const foundActors = args.actorIds.map(actorId => actors.find(actor => actor.id === actorId));
                 if (foundActors.includes(undefined)) return;
 
                 const movie = {
@@ -72,14 +68,13 @@ const RootMutationType = new GraphQLObjectType({
                     title: args.title,
                     actorIds: args.actorIds
                 };
-
                 movies.push(movie);
                 return movie;
             }
         },
         addActor: {
             type: ActorType,
-            description: "Create a new actor",
+            description: "Opret en ny skuespiller",
             args: {
                 name: { type: new GraphQLNonNull(GraphQLString) }
             },
@@ -88,7 +83,6 @@ const RootMutationType = new GraphQLObjectType({
                     id: ++actorId,
                     name
                 };
-
                 actors.push(actor);
                 return actor;
             }
@@ -96,30 +90,29 @@ const RootMutationType = new GraphQLObjectType({
     }
 });
 
+// Definerer forespørgsler for at hente film og skuespillere
 const RootQueryType = new GraphQLObjectType({
-        name: "RootQueryType",
-        fields: {
-            movies: {
-                type: new GraphQLList(MovieType),
-                description: "All movies",
-                resolve: () => movies
+    name: "RootQueryType",
+    fields: {
+        movies: {
+            type: new GraphQLList(MovieType),
+            description: "Alle film",
+            resolve: () => movies
+        },
+        actors: {
+            type: new GraphQLList(ActorType),
+            description: "Alle skuespillere",
+            resolve: () => actors
+        },
+        actorById: {
+            type: ActorType,
+            description: "Få en enkelt skuespiller",
+            args: {
+                id: { type: new GraphQLNonNull(GraphQLInt) }
             },
-            actors: {
-                type: new GraphQLList(ActorType),
-                description: "All actors",
-                resolve: () => actors
-            },
-            actorById: {
-                type: ActorType,
-                description: "Get a single actor",
-                args: {
-                    id: { type: new GraphQLNonNull(GraphQLInt) }
-                },
-                resolve: (parent, args) => {
-                    return actors.find(actor => actor.id === args.id);
-                }
-            }
+            resolve: (parent, args) => actors.find(actor => actor.id === args.id)
         }
+    }
 });
 
 const schema = new GraphQLSchema({
@@ -127,12 +120,12 @@ const schema = new GraphQLSchema({
     mutation: RootMutationType
 });
 
-import { graphqlHTTP } from "express-graphql";
+// Opretter GraphQL endpoint
 app.use("/graphql", graphqlHTTP({
     schema,
     graphiql: true
 }));
 
-
+// Starter serveren
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => console.log("Server is running on port", PORT));
