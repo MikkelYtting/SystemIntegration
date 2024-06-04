@@ -60,7 +60,7 @@
     </section>
 
     <section>
-        <h2>Download File (FastAPI - Port 8000)</h2>
+        <h2>Server to Client Download (FastAPI - Port 8000)</h2>
         <form id="download-form">
             <label for="download-filename">Filename:</label>
             <input type="text" id="download-filename" placeholder="Enter filename to download" value="conf_int.png">
@@ -95,7 +95,7 @@
             const filename = document.getElementById("download-filename").value;
             if (filename) {
                 const link = document.createElement("a");
-                link.href = `http://localhost:8000/download/${filename}`;
+                link.href = `http://localhost:8000/server_to_client_download/${filename}`;
                 link.download = filename;
                 document.body.appendChild(link);
                 link.click();

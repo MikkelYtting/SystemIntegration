@@ -29,8 +29,8 @@ async def file_form(file: UploadFile = File(...), description: Optional[str] = F
     return {"filename": safe_filename}
 
 # Denne metode er server til klient
-@app.get("/download/{filename}")
-def download_file(filename: str):
+@app.get("/server_to_client_download/{filename}")
+def server_to_client_download(filename: str):
     """
     Sender en fil fra serveren til klienten.
     
