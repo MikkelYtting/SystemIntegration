@@ -1,8 +1,8 @@
 // choco install ngrok
-// ngrok config add-authtoken 2e0I80o8MO2sMQI4UMekNTiisqh_6DSLZzo7YGDaHAgspzqhS
-// npm i express
-// npm install express body-parser
+// npm i express express body-parser
 
+
+// ngrok config add-authtoken 2e0I80o8MO2sMQI4UMekNTiisqh_6DSLZzo7YGDaHAgspzqhS
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
@@ -11,9 +11,9 @@ const PORT = process.env.PORT || 3000;
 app.use(bodyParser.json()); 
 
 app.post('/webhook', (req, res) => {
-    console.log('Received webhook:', req.body);
+    console.log('Received webhook:', req.body); // Logger den modtagne JSON-data
     
-    res.send('Received!'); // response
+    res.send('Received!'); // Sender bekræftelse tilbage til GitHub
 });
 
 app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
