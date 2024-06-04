@@ -9,8 +9,8 @@ test by parsing data from the index file
 
 
 for python:
-pip install fastapi aiofiles "uvicorn[standard]"
-pip install python-multipart
+pip install fastapi aiofiles "uvicorn[standard]" python-multipart
+
 
 to run:
 uvicorn main:app

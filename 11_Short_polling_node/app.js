@@ -22,7 +22,7 @@ function updateRandomNumbers() {
     randomNumbers = Array.from({ length: 3 }, () => getRandomInt(1, 1000));
 }
 
-// Update random numbers every second
+// Update random numbers every second SHORT POLLING
 setInterval(updateRandomNumbers, 1000);
 
 const PORT = 8080;

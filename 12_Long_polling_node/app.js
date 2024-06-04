@@ -14,20 +14,20 @@ app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-// Endpoint to subscribe to events (long polling)
+// Endpoint til at subscribe til events LONG POLLING
 app.get("/events/subscribe", (req, res) => {
     res.setHeader('Content-Type', 'application/json');
     res.setHeader('Cache-Control', 'no-cache');
     res.setHeader('Connection', 'keep-alive');
 
-    clients.push(res);
+    clients.push(res); // gemmer array med response, så det kan sendes senere
 
     req.on("close", () => {
         clients = clients.filter(client => client !== res);
     });
 });
 
-// Endpoint to publish new events to subscribed clients
+// Endpoint til  publish ny events til subscribed clients
 app.get("/events/publish", (req, res) => {
     const newData = { data: "This is a new message" };
 

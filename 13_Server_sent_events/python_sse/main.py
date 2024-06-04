@@ -3,6 +3,7 @@ from fastapi.templating import Jinja2Templates
 from fastapi.responses import StreamingResponse
 from datetime import datetime
 import asyncio 
+# fastapi = api builder
 
 app = FastAPI()
 

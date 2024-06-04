@@ -8,11 +8,11 @@ const bodyParser = require('body-parser');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(bodyParser.json()); // for parsing application/json
+app.use(bodyParser.json()); 
 
 app.post('/webhook', (req, res) => {
     console.log('Received webhook:', req.body);
-    // 
+    
     res.send('Received!');
 });
 
