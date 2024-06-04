@@ -23,3 +23,9 @@ app.get("/timestamp", cors(), (req, res) => {
 
 const PORT = process.env.PORT ?? 8080;
 app.listen(PORT, () => console.log("Server is running on port", 8080));
+
+
+//  npm init -y
+//  npm i cors
+//	npm i express
+//	nodemon app.js   
