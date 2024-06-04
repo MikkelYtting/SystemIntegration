@@ -2,7 +2,7 @@
 name = "python-plain"
 version = "0.1.0"
 description = ""
-authors = ["anderslatif <anderslatif@users.noreply.github.com>"]
+authors = ["MikkelYtting <62931295+MikkelYtting@users.noreply.github.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]

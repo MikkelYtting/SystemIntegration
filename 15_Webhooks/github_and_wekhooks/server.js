@@ -13,7 +13,7 @@ app.use(bodyParser.json());
 app.post('/webhook', (req, res) => {
     console.log('Received webhook:', req.body);
     
-    res.send('Received!');
+    res.send('Received!'); // response
 });
 
 app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));

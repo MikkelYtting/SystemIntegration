@@ -1,4 +1,4 @@
-import net from 'net';
+import net from 'net'; // TCP protocol module
 
 const HOST = '127.0.0.1';
 const PORT = 2222;
