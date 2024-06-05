@@ -22,9 +22,9 @@ class SchemaDocumentationWithMRO {
     });
   }
 
-  /**
-   * Starter dokumentationsgenereringsprocessen ved at køre MRO.
-   */
+  
+   //Starter dokumentationsgenereringsprocessen ved at køre MRO.
+   
   async generateDocumentation() {
     try {
       const message = await this.runMRO();

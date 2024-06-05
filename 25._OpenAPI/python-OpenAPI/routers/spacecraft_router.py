@@ -4,14 +4,14 @@ from pydantic import BaseModel
 class Spacecraft(BaseModel):
     id: int
     name: str
-
+# In-memory datalager for rumfartøjer
 spacecrafts = [
     Spacecraft(id=0, name="Apollo 13"),
     Spacecraft(id=1, name="Hubble"),
     Spacecraft(id=2, name="ISS"),
     Spacecraft(id=3, name="Voyager"), 
 ]
-
+# Opret en API-router til rumfartøjs-endpoints
 router = APIRouter()
 
 @router.get("/api/spacecrafts", tags=["spacecrafts"], response_model=list[Spacecraft])

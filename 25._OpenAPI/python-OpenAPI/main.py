@@ -23,6 +23,7 @@ from fastapi.openapi.utils import get_openapi
 
 app = FastAPI()
 
+# bruger spacecraft_router
 app.include_router(spacecraft_router)
 
 # Generer og gemmer OpenAPI ved start. kan ses i openapi.json
