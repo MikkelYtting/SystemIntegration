@@ -15,6 +15,10 @@
 # Når appen startes genereres dokumentationen
 
 
+# programmet genererer API-dokumentation ved opstart og starter derefter API'en
+# programmet genererer API-dokumentation ved opstart og starter derefter API'en
+# programmet genererer API-dokumentation ved opstart og starter derefter API'en
+
 
 from fastapi import FastAPI
 import json
