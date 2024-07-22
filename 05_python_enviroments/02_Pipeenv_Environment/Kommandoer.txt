@@ -1,0 +1,6 @@
+cd "C:\Github\SystemIntegration\05_python_enviroments\02_Pipeenv_Environment"
+pip install pipenv
+pipenv install
+pipenv install emoji
+pipenv shell
+python main.py

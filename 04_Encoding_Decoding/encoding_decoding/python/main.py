@@ -1,4 +1,4 @@
-encoded_string = "hallå".encode()
+encoded_string = "hello".encode()
 
 print(encoded_string)
 
