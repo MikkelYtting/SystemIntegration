@@ -6,7 +6,6 @@ const SimonRegistrationUrl = '';
 // min listener ngrok link
 const MyWebhookUrl = '';
 
-// The events you're interested in
 const events = ['payment_received', 'invoice_processed']; 
 
 axios.post(SimonRegistrationUrl, {

@@ -1,6 +1,6 @@
 import json
 
-# Python object (e.g., a dictionary)
+# Python dic objekt 
 python_object = {
     "name": "John Doe",
     "age": 30,
@@ -8,10 +8,10 @@ python_object = {
     "courses": ["Math", "Science"]
 }
 
-# Serialize the Python object to a JSON string
+# Serialiserer Python objektet til en JSON-streng
 json_string = json.dumps(python_object)
 
-# Save the JSON string to a file
+# Gemmer JSON-strengen i en fil
 with open("data.json", "w") as file:
     file.write(json_string)
 
