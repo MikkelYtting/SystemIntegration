@@ -7,7 +7,7 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.12"
-emoji = "^2.12.1"
+emoji = "^2.12.1" # emoji pakken
 
 
 [build-system]
