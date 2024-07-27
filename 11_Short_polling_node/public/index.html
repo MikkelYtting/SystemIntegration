@@ -13,13 +13,15 @@
     <script>
         const randomNumbersDiv = document.getElementById("randomNumbers");
         const DELAY = 1000;
+
+        // Funktion til at foretage en forespørgsel til serveren og opdatere div med tilfældige numre
         const poll = async () => {
-            const response = await fetch("/randomNumbers");
-            const result = await response.json();
-            randomNumbersDiv.textContent = result.data.join("  ");
+            const response = await fetch("/randomNumbers"); // Send en forespørgsel til serveren på endpointet "/randomNumbers"
+            const result = await response.json(); // Parse JSON-resultatet
+            randomNumbersDiv.textContent = result.data.join("  "); // Opdater div med tilfældige numre
         };
 
-        setInterval(poll, DELAY);
+        setInterval(poll, DELAY); // Udfør poll-funktionen hvert sekund (SHORT POLLING)
     </script>
 </body>
 </html>

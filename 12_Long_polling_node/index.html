@@ -11,26 +11,26 @@
     <script>
         const messagesDiv = document.getElementById("messages");
 
-        // Function to subscribe to the events
+        // Funktion til at abonnere på begivenheder fra serveren
         const subscribe = async () => {
             try {
-                const response = await fetch("/events/subscribe");
-                const result = await response.json();
-                const message = document.createElement("div");
-                message.textContent = result.data;
-                messagesDiv.appendChild(message);
+                const response = await fetch("/events/subscribe"); // Send en forespørgsel til serveren på endpointet "/events/subscribe"
+                const result = await response.json(); // Parse JSON-svaret fra serveren til et JavaScript-objekt
+                const message = document.createElement("div"); // Opret et ny div
+                message.textContent = result.data; // Indsæt den nye data
+                messagesDiv.appendChild(message); // Tilføj den nye besked til messagesDiv
 
-                // Re-establish the connection after receiving data
-                subscribe();
+                // Genetabler forbindelsen efter modtagelse af data
+                subscribe(); // Kald subscribe-funktionen igen for at holde forbindelsen åben
             } catch (error) {
                 console.error("Error during subscription:", error);
 
-                // Retry subscribing after a short delay if an error occurs
-                setTimeout(subscribe, 1000);
+                // Forsøg at abonnere igen efter en kort forsinkelse, hvis en fejl opstår
+                setTimeout(subscribe, 1000); // Forsøg igen efter 1 sekund
             }
         };
 
-        // Start subscribing to the events
+        // Start abonnementsfunktionen
         subscribe();
     </script>
 </body>
