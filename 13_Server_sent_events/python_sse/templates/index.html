@@ -12,9 +12,12 @@
     <script>
         const dateDiv = document.getElementById("date");
 
+           // Opretter en ny EventSource til at lytte til "/sse" endpointet
         const eventSource = new EventSource("/sse");
 
+         // Når en besked modtages fra serveren
         eventSource.onmessage = (event) => {
+            // Opdaterer indholdet af div med id "date"
             dateDiv.textContent = event.data;
         };
     </script>

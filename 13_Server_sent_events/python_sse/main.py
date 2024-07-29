@@ -21,6 +21,7 @@ async def date_generator():
         await asyncio.sleep(1)
         
 
+# Definerer et endpoint for "/sse", som streamer data kontinuerligt
 @app.get("/sse")
 def sse():
     return StreamingResponse(date_generator(), media_type="text/event-stream")

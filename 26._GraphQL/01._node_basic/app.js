@@ -20,7 +20,7 @@ const schema = new GraphQLSchema({
     fields: {
       hello: {
         type: GraphQLString,
-        resolve: () => "World"
+        resolve: () => "World" // data
       },
     },
   }),
