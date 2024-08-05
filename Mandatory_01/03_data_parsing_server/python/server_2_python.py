@@ -1,11 +1,30 @@
 from fastapi import FastAPI, HTTPException
-from starlette.responses import FileResponse
 import os
-import httpx
+import yaml
+import csv
+import xmltodict
+import json
 
 app = FastAPI()
 
-DATA_DIR = os.path.join(os.path.dirname(__file__), 'data') # Data directory
+DATA_DIR = os.path.join(os.path.dirname(__file__), 'data')  # Data directory
+
+def parse_file_before_sending(file_path):
+    """Parser filindhold før det sendes til klienten."""
+    ext = os.path.splitext(file_path)[1]
+    with open(file_path, 'r', encoding='utf-8') as file:
+        if ext == '.json':
+            return json.load(file)  # Parsing af JSON
+        elif ext == '.csv':
+            return list(csv.DictReader(file))  # Parsing af CSV
+        elif ext == '.xml':
+            return xmltodict.parse(file.read())  # Parsing af XML
+        elif ext in ['.yaml', '.yml']:
+            return yaml.safe_load(file)  # Parsing af YAML
+        elif ext == '.txt':
+            return file.read()  # Læsning af ren tekst
+        else:
+            raise ValueError('Uunderstøttet filformat')
 
 # Serverer filer fra data-mappen
 @app.get("/data/{filename}")
@@ -13,34 +32,22 @@ async def serve_file(filename: str):
     file_path = os.path.join(DATA_DIR, filename)
     if not os.path.isfile(file_path):
         raise HTTPException(status_code=404, detail="File not found")
-    return FileResponse(file_path)
+    try:
+        data = parse_file_before_sending(file_path)
+        return data  # Return parsed data
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
-# Endpoint for at hente data fra Server A (Node.js)
-@app.get('/fetch_from_server_a/{filename}')
-async def fetch_from_server_a(filename: str):
-    async with httpx.AsyncClient() as client:
-        try:
-            response = await client.get(f'http://localhost:3000/data/{filename}')
-            if response.status_code == 200:
-                return response.text
-            else:
-                return HTTPException(status_code=response.status_code, detail=f"Server A responded with status: {response.status_code}")
-        except httpx.HTTPError as exc:
-            return HTTPException(status_code=500, detail=str(exc))
+# Endpoint for at hente data fra Server A
+@app.get("/fetch-from-a/{filename}")
+async def fetch_from_a(filename: str):
+    try:
+        async with httpx.AsyncClient() as client:
+            response = await client.get(f"http://localhost:3000/data/{filename}")
+            data = response.json()
+            return data  # Return data received from Server A
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Fejl ved hentning fra Server A: {str(e)}")
 
 # Kør serveren med:
-# uvicorn server_2_python:app --reload
-
-# For at få data fra samme server
-# http://localhost:8000/data/server2_info.json
-# http://localhost:8000/data/server2_info.txt
-# http://localhost:8000/data/server2_info.xml
-# http://localhost:8000/data/server2_info.yaml
-# http://localhost:8000/data/server2_info.csv
-
-# For at hente samme data gennem Node.js server 1
-# http://localhost:8000/fetch_from_server_a/server1_info.json
-# http://localhost:8000/fetch_from_server_a/server1_info.txt
-# http://localhost:8000/fetch_from_server_a/server1_info.xml
-# http://localhost:8000/fetch_from_server_a/server1_info.yaml
-# http://localhost:8000/fetch_from_server_a/server1_info.csv
+# uvicorn server_b:app --reload
