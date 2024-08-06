@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stripe Payment Integration</title>
+    <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+    <h1>Stripe Payment Integration</h1>
+    <div id="card-element"><!-- Stripe Element vil blive indsat her --></div>
+    <button id="checkout-button">Checkout</button>
+
+    <script>
+        // Initialiserer Stripe med den offentlige nøgle
+        const stripe = Stripe('pk_test_51PN12bRoScP7w1sDqjt3KzlRNjfYseEBFVp7JTD6cLHxPNb6SOzePnGIfOyF2qaMC6LMMKX3mHQg9Adg07AmoLls00uTOKP9MV');
+        const elements = stripe.elements();
+        const card = elements.create('card');
+        card.mount('#card-element');
+
+        document.getElementById('checkout-button').addEventListener('click', async () => {
+            // Sender en POST-anmodning til backend for at oprette en betalingsintention
+            const response = await fetch('http://localhost:3000/create-payment-intent', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ amount: 5000, currency: 'usd' }) // Beløb i cents
+            });
+
+            const { clientSecret } = await response.json();
+
+            // Bekræfter betalingen ved hjælp af Stripe.js
+            const { error } = await stripe.confirmCardPayment(clientSecret, {
+                payment_method: {
+                    card: card,
+                    billing_details: {
+                        name: 'Jenny Rosen',
+                    },
+                }
+            });
+
+            if (error) {
+                console.error('Payment failed:', error);
+            } else {
+                console.log('Payment succeeded');
+            }
+        });
+    </script>
+</body>
+</html>
+

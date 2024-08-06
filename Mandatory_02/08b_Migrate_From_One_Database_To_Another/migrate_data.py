@@ -1,18 +1,17 @@
 from source import Source
 from target import Target
 
-# Source SQLite database connection
-source_db = Source('sqlite:///source.db')
+# Initialiser source- og target databaser
+source_db = Source()
+target_db = Target()
 
-# Target PostgreSQL database connection
-target_db = Target('postgresql+psycopg2://username:password@localhost:5432/targetdb')
-
-# List of tables to migrate
+# Liste over tabeller, der skal migreres
 tables_to_migrate = ['users', 'products', 'orders', 'order_items']
 
-# Migrate each table
+# Migrer hver tabel
 for table in tables_to_migrate:
     df = source_db.read_table(table)
     target_db.write_table(table, df)
 
+# Bekræft færdiggørelsen af databasemigrering
 print("Data migration completed successfully")
